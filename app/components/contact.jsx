@@ -8,32 +8,34 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const [sujet, setSujet] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     const serviceId = "service_wnema2c";
     const templateId = "template_6mx7och";
-
+  
     try {
-      const response = await emailjs.sendForm(
-        serviceId,
-        templateId,
-        e.target,
-        "JPVC2pgKwHmxjZV6K",
-        { sujet }
-      );
-      console.log("Email sent successfully!", response);
+      const emailData = {
+        name: name,
+        email: email,
+        message: message,
+        sujet: sujet,
+      };
+  
+      const response = await emailjs.send(serviceId, templateId, emailData, 'JPVC2pgKwHmxjZV6K');
+  
+      console.log('Email sent successfully!', response);
       setStatusMessage("Votre message a été envoyé avec succès!");
       setName("");
       setEmail("");
       setMessage("");
       setSujet("");
     } catch (error) {
-      console.error("Error sending email:", error);
-      setStatusMessage(
-        "Une erreur s'est produite lors de l'envoi du message. Veuillez réessayer."
-      );
+      console.error('Error sending email:', error);
     }
   };
+
 
   return (
     <div>
