@@ -50,7 +50,7 @@ class Example extends Component {
             {/* Column 2 */}
             <div className="bg-white rounded-lg shadow-xl p-8 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl">
               <img
-                src="/images/image.png"
+                src="https://res.cloudinary.com/dfnxagwsr/image/upload/v1715270238/o4ggohtiwt8syxcbvbhm.png"
                 alt="Textile Technique"
                 className="mx-auto h-24 w-[140px] mb-6"
               />
