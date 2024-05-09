@@ -13,7 +13,7 @@ const Footer = () => {
         </a>
 
         <p>
-          &copy; SAIDTEX © 2024 by{" "}
+          &copy; SAIDTEX © 2023 by{" "}
           <a className="hover:text-blue-500" href="https://feizhoucom.com">
             FeizhouCom
           </a>
