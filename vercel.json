@@ -14,7 +14,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=3600" // Example: cache static assets for 1 hour
+          "value": "public, max-age=3600"
         }
       ]
     }
