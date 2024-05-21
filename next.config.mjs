@@ -3,7 +3,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/api/:path*", // Adjust this according to your API route pattern
+        source: "/api/:path*", 
         headers: [
           {
             key: "Cache-Control",
@@ -12,11 +12,11 @@ const nextConfig = {
         ],
       },
       {
-        source: "/static/:path*", // Adjust this according to your static asset path pattern
+        source: "/static/:path*",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=3600", // Example: cache static assets for 1 hour
+            value: "public, max-age=3600", 
           },
         ],
       },
