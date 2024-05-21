@@ -1,30 +1,12 @@
-"use client"
-import React, { useState, useEffect } from "react";
+// pages/partenaires.js
+import React from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const Hero1 = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState([]);
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+const Hero1 = ({ galleryItems }) => {
+  const [activeFilter, setActiveFilter] = React.useState("All");
 
   const handleFilterClick = (filter) => {
-    console.log("Selected category:", filter);
     setActiveFilter(filter);
-  };
-
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch("https://saidtex.ma/api/partners");
-      if (!response.ok) {
-        throw new Error("Failed to fetch blogs");
-      }
-      const blogs = await response.json();
-      setGalleryItems(blogs);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    }
   };
 
   return (
@@ -110,5 +92,18 @@ const Hero1 = () => {
   );
 };
 
-export default Hero1;
+export const getServerSideProps = async () => {
+  try {
+    const response = await fetch("https://saidtex.ma/api/partners");
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+    const galleryItems = await response.json();
+    return { props: { galleryItems } };
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return { props: { galleryItems: [] } };
+  }
+};
 
+export default Hero1;
