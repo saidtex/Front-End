@@ -1,22 +1,26 @@
-// pages/hero1.js
 "use client"
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const Hero1 = ({ initialGalleryItems }) => {
+const Hero1 = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
+  const [galleryItems, setGalleryItems] = useState([]);
 
-  useEffect(() => {
-    // Ensure useEffect runs only on the client side
-    if (typeof window !== "undefined") {
-      // Your client-side code here
-    }
+ useEffect(() => {
+    fetchPartners(); // Fetch partners data on component mount
   }, []);
 
   const handleFilterClick = (filter) => {
-    console.log("Selected category:", filter);
     setActiveFilter(filter);
+  };
+
+  const fetchPartners = async () => {
+    try {
+      const response = await axios.get("https://front-end-six-rust.vercel.app/api/partners"); // Fetch data from the API endpoint
+      setGalleryItems(response.data); // Update state with fetched data
+    } catch (error) {
+      console.error("Error fetching partners:", error);
+    }
   };
 
   return (
@@ -46,7 +50,24 @@ const Hero1 = ({ initialGalleryItems }) => {
               >
                 All
               </span>
-              {/* Other filter spans */}
+              <span
+                onClick={() => handleFilterClick("Tissage et bonneterie")}
+                className={activeFilter === "Tissage et bonneterie" ? "active" : ""}
+              >
+                Tissage et bonneterie
+              </span>
+              <span
+                onClick={() => handleFilterClick("Finissage")}
+                className={activeFilter === "Finissage" ? "active" : ""}
+              >
+                Finissage
+              </span>
+              <span
+                onClick={() => handleFilterClick("Filature")}
+                className={activeFilter === "Filature" ? "active" : ""}
+              >
+                Filature
+              </span>
             </div>
           </div>
 
@@ -84,27 +105,5 @@ const Hero1 = ({ initialGalleryItems }) => {
     </section>
   );
 };
-
-export async function getServerSideProps(context) {
-  try {
-    const response = await fetch("https://front-end-six-rust.vercel.app/api/partners");
-    if (!response.ok) {
-      throw new Error("Failed to fetch blogs");
-    }
-    const galleryItems = await response.json();
-    return {
-      props: {
-        initialGalleryItems: galleryItems,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return {
-      props: {
-        initialGalleryItems: [],
-      },
-    };
-  }
-}
 
 export default Hero1;
