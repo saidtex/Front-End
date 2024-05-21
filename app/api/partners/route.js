@@ -1,21 +1,24 @@
-// pages/partners.js
+// pages/index.js
 
+import Hero1 from "../../components/partenaires.jsx";
 import connectMongoDB from "../../../libs/mongodb";
 import Partner from "../../../models/partner";
 
-const PartnersPage = ({ partners }) => {
-  // Render your component or page with the fetched data
+const HomePage = ({ initialGalleryItems }) => {
+  return <Hero1 initialGalleryItems={initialGalleryItems} />;
 };
 
 export async function getServerSideProps() {
   await connectMongoDB();
   const partners = await Partner.find();
 
+  const props = {
+    initialGalleryItems: JSON.parse(JSON.stringify(partners))
+  };
+
   // Set CORS headers in the response
   return {
-    props: {
-      partners: JSON.parse(JSON.stringify(partners))
-    },
+    props,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -24,4 +27,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default PartnersPage;
+export default HomePage;
