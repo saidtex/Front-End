@@ -8,6 +8,8 @@ const Hero1 = () => {
 
   useEffect(() => {
     fetchBlogs();
+    const intervalId = setInterval(fetchPartners, 5000); // Polling every 5 seconds
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleFilterClick = (filter) => {
