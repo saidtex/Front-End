@@ -1,9 +1,9 @@
 // pages/partenaires.js
-import React from "react";
-import "@fortawesome/fontawesome-free/css/all.css";
+import React, { useState } from "react";
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const Hero1 = ({ galleryItems }) => {
-  const [activeFilter, setActiveFilter] = React.useState("All");
+  const [activeFilter, setActiveFilter] = useState("All");
 
   const handleFilterClick = (filter) => {
     setActiveFilter(filter);
