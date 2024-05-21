@@ -7,13 +7,30 @@ const Hero1 = ({ initialGalleryItems }) => {
   const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
 
   useEffect(() => {
-    // Your code for data fetching (if needed) on client-side here
-  }, []);
+    // Your code for data fetching on the client-side here
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://saidtex.ma/api/partners");
+        if (!response.ok) {
+          throw new Error("Failed to fetch blogs");
+        }
+        const blogs = await response.json();
+        setGalleryItems(blogs);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
+
+  // Rest of the component code remains the same
+};
 
   return (
     <section
