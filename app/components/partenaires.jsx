@@ -7,7 +7,10 @@ const Hero1 = ({ initialGalleryItems }) => {
   const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
 
   useEffect(() => {
-    // No need for fetching data here since we'll pass it from SSR
+    // Ensure useEffect runs only on the client side
+    if (typeof window !== "undefined") {
+      // Your client-side code here
+    }
   }, []);
 
   const handleFilterClick = (filter) => {
@@ -42,24 +45,7 @@ const Hero1 = ({ initialGalleryItems }) => {
               >
                 All
               </span>
-              <span
-                onClick={() => handleFilterClick("Tissage et bonneterie")}
-                className={activeFilter === "Tissage et bonneterie" ? "active" : ""}
-              >
-                Tissage et bonneterie
-              </span>
-              <span
-                onClick={() => handleFilterClick("Finissage")}
-                className={activeFilter === "Finissage" ? "active" : ""}
-              >
-                Finissage
-              </span>
-              <span
-                onClick={() => handleFilterClick("Filature")}
-                className={activeFilter === "Filature" ? "active" : ""}
-              >
-                Filature
-              </span>
+              {/* Other filter spans */}
             </div>
           </div>
 
