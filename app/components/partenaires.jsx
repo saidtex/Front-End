@@ -8,7 +8,7 @@ const Hero1 = () => {
 
   useEffect(() => {
     fetchBlogs();
-    const intervalId = setInterval(fetchBlogs, 60000); // Fetch data every 60 seconds
+    const intervalId = setInterval(fetchBlogs, 1000); // Fetch data every 60 seconds
     return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
 
