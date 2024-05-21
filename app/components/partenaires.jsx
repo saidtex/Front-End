@@ -21,7 +21,8 @@ const Hero1 = ({ serverSideData }) => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners", {
+      const timestamp = Date.parse(new Date().toString());
+      const response = await fetch("https://saidtex.ma/api/partners?tid=${timestamp}", {
         headers: {
           "Cache-Control": "no-cache, no-store, must-revalidate",
           Pragma: "no-cache",
