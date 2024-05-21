@@ -1,4 +1,7 @@
 "use client";
+import React, { useState } from "react";
+import "@fortawesome/fontawesome-free/css/all.css";
+import { getServerSideProps } from "./dataFetching";
 const Hero1 = ({ initialGalleryItems }) => {
   console.log("Initial Gallery Items:", initialGalleryItems); // Log initial items
   const [activeFilter, setActiveFilter] = useState("All");
