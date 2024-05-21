@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { getServerSideProps } from "./dataFetching"; // Adjust path if necessary
 
-const Hero1 = ({ initialGalleryItems }) => {
+const Hero1 = ({ initialGalleryItems = [] }) => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
 
