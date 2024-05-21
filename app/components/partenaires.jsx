@@ -16,19 +16,19 @@ const Hero1 = () => {
   };
 
   const fetchBlogs = async () => {
-  try {
-    const timestamp = new Date().getTime(); // Get current timestamp
-    const url = `https://saidtex.ma/api/partners?timestamp=${timestamp}`; // Append timestamp as a query parameter
-    const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error("Failed to fetch blogs");
+    try {
+      const timestamp = new Date().getTime(); // Get current timestamp
+      const url = `https://saidtex.ma/api/partners?timestamp=${timestamp}`; // Append timestamp as a query parameter
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Failed to fetch blogs");
+      }
+      const blogs = await response.json();
+      setGalleryItems(blogs);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
     }
-    const blogs = await response.json();
-    setGalleryItems(blogs);
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-  }
-};
+  };
 
   return (
     <section
