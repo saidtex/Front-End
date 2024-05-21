@@ -5,27 +5,25 @@ import "@fortawesome/fontawesome-free/css/all.css";
 const Hero1 = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [galleryItems, setGalleryItems] = useState([]);
-
- const [error, setError] = useState(null);
-
   useEffect(() => {
-    fetchPartners(); // Fetch partners data on component mount
-    const intervalId = setInterval(fetchPartners, 5000); // Polling every 5 seconds
-    return () => clearInterval(intervalId); // Cleanup function to stop polling on component unmount
+    fetchBlogs();
   }, []);
 
   const handleFilterClick = (filter) => {
+    console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
-  const fetchPartners = async () => {
+  const fetchBlogs = async () => {
     try {
-      const response = await axios.get("https://saidtex.ma/api/partners"); // Fetch data from the API endpoint
-      setGalleryItems(response.data); // Update state with fetched data
-      setError(null); // Clear any previous errors
+      const response = await fetch("https://saidtex.ma/api/partners");
+      if (!response.ok) {
+        throw new Error("Failed to fetch blogs");
+      }
+      const blogs = await response.json();
+      setGalleryItems(blogs);
     } catch (error) {
-      console.error("Error fetching partners:", error);
-      setError("Failed to fetch partners data. Please try again later.");
+      console.error("Error fetching blogs:", error);
     }
   };
 
