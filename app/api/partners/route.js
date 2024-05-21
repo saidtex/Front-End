@@ -2,9 +2,6 @@ import connectMongoDB from "../../../libs/mongodb";
 import Partner from "../../../models/partner";
 import { NextResponse } from "next/server";
 
-// Define your additional data
-const someData = { "reasonsICryMyselfToSleepAtNight": ["caching"] };
-
 export async function GET(request) {
   try {
     // Connect to MongoDB
@@ -14,7 +11,7 @@ export async function GET(request) {
     const partners = await Partner.find();
 
     // Prepare the response
-    const response = NextResponse.json({ partners, ...someData });
+    const response = NextResponse.json(partners);
 
     // Set cache control headers to prevent caching
     response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
