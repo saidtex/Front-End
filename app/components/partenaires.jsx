@@ -1,13 +1,16 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import ReactDOMServer from "react-dom/server";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const Hero1 = () => {
+const Hero1 = ({ serverSideData }) => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState([]);
+  const [galleryItems, setGalleryItems] = useState(serverSideData || []);
 
   useEffect(() => {
-    fetchBlogs();
+    if (!serverSideData || serverSideData.length === 0) {
+      fetchBlogs();
+    }
   }, []);
 
   const handleFilterClick = (filter) => {
@@ -18,12 +21,12 @@ const Hero1 = () => {
   const fetchBlogs = async () => {
     try {
       const response = await fetch("https://saidtex.ma/api/partners", {
-      headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
-    });
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
@@ -63,7 +66,9 @@ const Hero1 = () => {
               </span>
               <span
                 onClick={() => handleFilterClick("Tissage et bonneterie")}
-                className={activeFilter === "Tissage et bonneterie" ? "active" : ""}
+                className={
+                  activeFilter === "Tissage et bonneterie" ? "active" : ""
+                }
               >
                 Tissage et bonneterie
               </span>
@@ -117,4 +122,25 @@ const Hero1 = () => {
   );
 };
 
+export const getServerSideProps = async () => {
+  try {
+    const response = await fetch("https://saidtex.ma/api/partners", {
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+    const blogs = await response.json();
+    return { props: { serverSideData: blogs } };
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return { props: { serverSideData: [] } };
+  }
+};
+
 export default Hero1;
+
