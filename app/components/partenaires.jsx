@@ -23,12 +23,8 @@ const Hero1 = ({ serverSideData }) => {
     try {
       const timestamp = Date.parse(new Date().toString());
       const response = await fetch("https://saidtex.ma/api/partners?tid=${timestamp}", {
-        headers: {
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-        },
-      });
+    cache: 'no-store',
+  });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
