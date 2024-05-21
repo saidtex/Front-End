@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 const Hero1 = ({ galleryItems }) => {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = React.useState("All");
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
@@ -27,7 +27,6 @@ const Hero1 = ({ galleryItems }) => {
 
       <div className="container-fluid">
         <div className="row">
-          {/* Filter buttons */}
           <div className="filtering text-center mb-30 col-sm-12">
             <div className="filter">
               <span
@@ -41,7 +40,6 @@ const Hero1 = ({ galleryItems }) => {
             </div>
           </div>
 
-          {/* Gallery */}
           <div className="clearfix"></div>
 
           <div className="gallery grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -81,7 +79,7 @@ export async function getServerSideProps(context) {
   try {
     const response = await fetch("https://saidtex.ma/api/partners");
     if (!response.ok) {
-      throw new Error("Failed to fetch partners.");
+      throw new Error("Failed to fetch partners");
     }
     const galleryItems = await response.json();
     return {
