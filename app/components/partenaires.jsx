@@ -1,36 +1,38 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const Hero1 = ({ initialGalleryItems }) => {
+const Hero1 = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
+  const [galleryItems, setGalleryItems] = useState([]);
 
   useEffect(() => {
-    // Your code for data fetching on the client-side here
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://saidtex.ma/api/partners");
-        if (!response.ok) {
-          throw new Error("Failed to fetch blogs");
-        }
-        const blogs = await response.json();
-        setGalleryItems(blogs);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures this effect runs only once on component mount
+    fetchBlogs();
+  }, []);
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
-  // Rest of the component code remains the same
-};
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch("https://saidtex.ma/api/partners", {
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    });
+      if (!response.ok) {
+        throw new Error("Failed to fetch blogs");
+      }
+      const blogs = await response.json();
+      setGalleryItems(blogs);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    }
+  };
 
   return (
     <section
@@ -114,27 +116,5 @@ const Hero1 = ({ initialGalleryItems }) => {
     </section>
   );
 };
-
-export async function getServerSideProps() {
-  try {
-    const response = await fetch("https://saidtex.ma/api/partners");
-    if (!response.ok) {
-      throw new Error("Failed to fetch blogs");
-    }
-    const blogs = await response.json();
-    return {
-      props: {
-        initialGalleryItems: blogs,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return {
-      props: {
-        initialGalleryItems: [],
-      },
-    };
-  }
-}
 
 export default Hero1;
