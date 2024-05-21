@@ -1,4 +1,5 @@
 // pages/hero1.js
+"use client"
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
