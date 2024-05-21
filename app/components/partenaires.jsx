@@ -19,7 +19,9 @@ const Hero1 = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners");
+      const response = await fetch("https://saidtex.ma/api/partners", {
+      cache: "no-store"
+    });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
