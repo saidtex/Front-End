@@ -1,34 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
-import { getServerSideProps } from "./dataFetching";
+import { getServerSideProps } from "./dataFetching"; // Adjust the path according to your project structure
+
 const Hero1 = ({ initialGalleryItems }) => {
-  console.log("Initial Gallery Items:", initialGalleryItems); // Log initial items
   const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState(initialGalleryItems || []);
+  const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
-  console.log("Filtered Gallery Items:", galleryItems); // Log filtered items
-
-  const fetchBlogs = async () => {
-    try {
-      const timestamp = new Date().getTime(); // Get current timestamp
-      const url = `https://saidtex.ma/api/partners?timestamp=${timestamp}`; // Append timestamp as a query parameter
-      const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) {
-        throw new Error("Failed to fetch blogs");
-      }
-      const blogs = await response.json();
-      console.log("Fetched Blogs on Refresh:", blogs); // Log fetched data on refresh
-      setGalleryItems(blogs);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    }
-  };
+  useEffect(() => {
+ setGalleryItems(initialGalleryItems);
+   }, [initialGalleryItems]);
 
   return (
     <section
