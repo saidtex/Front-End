@@ -1,27 +1,39 @@
-import React, { useEffect, useState } from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const Hero1 = ({ galleryItems }) => {
+const Hero1 = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [loading, setLoading] = useState(true);
+  const [galleryItems, setGalleryItems] = useState([]);
 
   useEffect(() => {
-    if (galleryItems && galleryItems.length > 0) {
-      setLoading(false);
-    }
-  }, [galleryItems]);
+    fetchBlogs();
+  }, []);
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch("https://saidtex.ma/api/partners");
+      if (!response.ok) {
+        throw new Error("Failed to fetch blogs");
+      }
+      const blogs = await response.json();
+      setGalleryItems(blogs);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    }
+  };
 
   return (
-    <section className="works section-padding" data-scroll-index="2" id="partenaires">
+    <section
+      className="works section-padding"
+      data-scroll-index="2"
+      id="partenaires"
+    >
       <div className="">
         <div className="row">
           <div className="section-head offset-md-2 col-md-8 offset-lg-3 col-lg-6">
@@ -43,7 +55,24 @@ const Hero1 = ({ galleryItems }) => {
               >
                 All
               </span>
-              {/* Add more filter buttons as needed */}
+              <span
+                onClick={() => handleFilterClick("Tissage et bonneterie")}
+                className={activeFilter === "Tissage et bonneterie" ? "active" : ""}
+              >
+                Tissage et bonneterie
+              </span>
+              <span
+                onClick={() => handleFilterClick("Finissage")}
+                className={activeFilter === "Finissage" ? "active" : ""}
+              >
+                Finissage
+              </span>
+              <span
+                onClick={() => handleFilterClick("Filature")}
+                className={activeFilter === "Filature" ? "active" : ""}
+              >
+                Filature
+              </span>
             </div>
           </div>
 
@@ -81,23 +110,5 @@ const Hero1 = ({ galleryItems }) => {
     </section>
   );
 };
-
-export async function getServerSideProps(context) {
-  try {
-    const response = await fetch("https://saidtex.ma/api/partners");
-    if (!response.ok) {
-      throw new Error("Failed to fetch partners");
-    }
-    const galleryItems = await response.json();
-    return {
-      props: { galleryItems },
-    };
-  } catch (error) {
-    console.error("Error fetching partners:", error);
-    return {
-      props: { galleryItems: [] }, // Return an empty array if fetching fails
-    };
-  }
-}
 
 export default Hero1;
