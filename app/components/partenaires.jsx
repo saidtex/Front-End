@@ -1,11 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { getServerSideProps } from "./dataFetching"; // Adjust the path as needed
 
 const Hero1 = ({ initialGalleryItems }) => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
+  const [galleryItems, setGalleryItems] = useState(initialGalleryItems || []);
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
@@ -81,31 +81,35 @@ const Hero1 = ({ initialGalleryItems }) => {
           <div className="clearfix"></div>
 
           <div className="gallery grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {galleryItems
-              .filter((item) => {
-                if (activeFilter === "All") return true;
-                return (
-                  item.categorie1 === activeFilter ||
-                  item.categorie2 === activeFilter ||
-                  item.categorie3 === activeFilter
-                );
-              })
-              .map(({ _id, link, image1, image2 }) => (
-                <div key={_id} className="item-img">
-                  <img src={image1} alt="image" />
-                  <div className="item-img-overlay">
-                    <div className="overlay-info full-width">
-                      <img src={image2} alt="image" />
-                      <p></p>
-                      <a href={link} className="popimg">
-                        <span className="icon">
-                          <i className="fas fa-long-arrow-alt-right"></i>
-                        </span>
-                      </a>
+            {galleryItems.length > 0 ? (
+              galleryItems
+                .filter((item) => {
+                  if (activeFilter === "All") return true;
+                  return (
+                    item.categorie1 === activeFilter ||
+                    item.categorie2 === activeFilter ||
+                    item.categorie3 === activeFilter
+                  );
+                })
+                .map(({ _id, link, image1, image2 }) => (
+                  <div key={_id} className="item-img">
+                    <img src={image1} alt="image" />
+                    <div className="item-img-overlay">
+                      <div className="overlay-info full-width">
+                        <img src={image2} alt="image" />
+                        <p></p>
+                        <a href={link} className="popimg">
+                          <span className="icon">
+                            <i className="fas fa-long-arrow-alt-right"></i>
+                          </span>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+            ) : (
+              <p>No items to display</p>
+            )}
           </div>
         </div>
       </div>
