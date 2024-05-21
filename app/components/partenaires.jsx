@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
@@ -8,6 +8,8 @@ const Hero1 = () => {
 
   useEffect(() => {
     fetchBlogs();
+    const intervalId = setInterval(fetchBlogs, 60000); // Fetch data every 60 seconds
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
 
   const handleFilterClick = (filter) => {
@@ -40,6 +42,9 @@ const Hero1 = () => {
             <h4>
               <span>Nos</span> partenaires
             </h4>
+            <button onClick={fetchBlogs} style={{ marginTop: "20px" }}>
+              Refresh Data
+            </button>
           </div>
         </div>
       </div>
