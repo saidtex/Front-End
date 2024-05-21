@@ -2,8 +2,12 @@ import React from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 const Hero1 = ({ galleryItems }) => {
-  // Ensure that useState is only called on the client-side
-  const [activeFilter, setActiveFilter] = typeof window !== 'undefined' ? React.useState("All") : [];
+  // Check if galleryItems is undefined or null
+  if (!galleryItems) {
+    return <div>Loading...</div>;
+  }
+
+  const [activeFilter, setActiveFilter] = React.useState("All");
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
@@ -89,7 +93,7 @@ export async function getServerSideProps(context) {
   } catch (error) {
     console.error("Error fetching partners:", error);
     return {
-      props: { galleryItems: [] }, // Return an empty array if fetching fails
+      props: { galleryItems: null }, // Return null if fetching fails
     };
   }
 }
