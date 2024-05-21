@@ -1,25 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 const Hero1 = ({ galleryItems }) => {
-  // Check if galleryItems is undefined or null
-  if (!galleryItems) {
-    return <div>Loading...</div>;
-  }
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
 
-  const [activeFilter, setActiveFilter] = React.useState("All");
+  useEffect(() => {
+    if (galleryItems && galleryItems.length > 0) {
+      setLoading(false);
+    }
+  }, [galleryItems]);
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <section
-      className="works section-padding"
-      data-scroll-index="2"
-      id="partenaires"
-    >
+    <section className="works section-padding" data-scroll-index="2" id="partenaires">
       <div className="">
         <div className="row">
           <div className="section-head offset-md-2 col-md-8 offset-lg-3 col-lg-6">
@@ -93,7 +95,7 @@ export async function getServerSideProps(context) {
   } catch (error) {
     console.error("Error fetching partners:", error);
     return {
-      props: { galleryItems: null }, // Return null if fetching fails
+      props: { galleryItems: [] }, // Return an empty array if fetching fails
     };
   }
 }
