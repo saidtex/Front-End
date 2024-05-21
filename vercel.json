@@ -1,14 +1,15 @@
 {
+  "version": 2,
   "routes": [
     {
-      "src": "/api/example",
+      "src": "https://saidtex.ma/api/partners",
       "methods": ["GET"],
-      "headers": {
-        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0",
-        "Surrogate-Control": "no-store"
-      }
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate" },
+        { "key": "Pragma", "value": "no-cache" },
+        { "key": "Expires", "value": "0" },
+        { "key": "Surrogate-Control", "value": "no-store" }
+      ]
     }
   ]
 }
