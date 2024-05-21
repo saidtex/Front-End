@@ -81,7 +81,7 @@ export async function getServerSideProps(context) {
   try {
     const response = await fetch("https://saidtex.ma/api/partners");
     if (!response.ok) {
-      throw new Error("Failed to fetch partners");
+      throw new Error("Failed to fetch partners.");
     }
     const galleryItems = await response.json();
     return {
