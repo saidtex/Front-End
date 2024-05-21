@@ -2,7 +2,8 @@ import React from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 const Hero1 = ({ galleryItems }) => {
-  const [activeFilter, setActiveFilter] = React.useState("All");
+  // Ensure that useState is only called on the client-side
+  const [activeFilter, setActiveFilter] = typeof window !== 'undefined' ? React.useState("All") : [];
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
