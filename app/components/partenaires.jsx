@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import { getServerSideProps } from "./dataFetching"; // Adjust the path as needed
 
 const Hero1 = ({ initialGalleryItems }) => {
+  console.log("Initial Gallery Items:", initialGalleryItems); // Log initial items
   const [activeFilter, setActiveFilter] = useState("All");
   const [galleryItems, setGalleryItems] = useState(initialGalleryItems || []);
 
@@ -15,12 +16,13 @@ const Hero1 = ({ initialGalleryItems }) => {
   const fetchBlogs = async () => {
     try {
       const timestamp = new Date().getTime(); // Get current timestamp
-      const url = `https://saidtex.ma/api/partners?timestamp=${timestamp}`; // Append timestamp as a query parameter
+      const url = `https://saidtex.ma/api/partners`; // Append timestamp as a query parameter
       const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
       const blogs = await response.json();
+      console.log("Fetched Blogs on Refresh:", blogs); // Log fetched data on refresh
       setGalleryItems(blogs);
     } catch (error) {
       console.error("Error fetching blogs:", error);
