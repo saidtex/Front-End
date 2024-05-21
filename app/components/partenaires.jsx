@@ -1,39 +1,32 @@
-"use client"
+// components/Hero1.js
+
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const Hero1 = () => {
+const Hero1 = ({ initialGalleryItems }) => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState([]);
+  const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
 
   useEffect(() => {
-    fetchBlogs();
+    fetchGalleryItems();
   }, []);
+
+  const fetchGalleryItems = async () => {
+    try {
+      // You can fetch additional data here if needed
+      setGalleryItems(initialGalleryItems);
+    } catch (error) {
+      console.error("Error fetching gallery items:", error);
+    }
+  };
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch("https://front-end-six-rust.vercel.app/api/partners");
-      if (!response.ok) {
-        throw new Error("Failed to fetch blogs");
-      }
-      const blogs = await response.json();
-      setGalleryItems(blogs);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    }
-  };
-
   return (
-    <section
-      className="works section-padding"
-      data-scroll-index="2"
-      id="partenaires"
-    >
+    <section className="works section-padding" data-scroll-index="2" id="partenaires">
       <div className="">
         <div className="row">
           <div className="section-head offset-md-2 col-md-8 offset-lg-3 col-lg-6">
