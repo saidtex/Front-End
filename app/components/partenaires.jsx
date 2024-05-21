@@ -19,14 +19,14 @@ const Hero1 = ({ serverSideData }) => {
   const fetchBlogs = async () => {
     try {
       const timestamp = Date.now();
-      const response = await fetch(`https://saidtex.ma/api/partners`, {
-      cache: 'no-store',
-      headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
-    });
+      const response = await fetch(`https://saidtex.ma/api/partners?tid=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
