@@ -1,14 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { getServerSideProps } from "./dataFetching"; // Adjust the path as needed
 
-const Hero1 = () => {
+const Hero1 = ({ initialGalleryItems }) => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [galleryItems, setGalleryItems] = useState([]);
-
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+  const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
@@ -116,4 +113,6 @@ const Hero1 = () => {
   );
 };
 
+export { getServerSideProps }; // Re-export the getServerSideProps function
 export default Hero1;
+
