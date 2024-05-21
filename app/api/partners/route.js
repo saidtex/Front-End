@@ -6,20 +6,24 @@ const PartnersPage = ({ partners }) => {
 };
 
 export async function getServerSideProps() {
-  await connectMongoDB();
-  const partners = await Partner.find();
+  try {
+    await connectMongoDB();
+    const partners = await Partner.find();
 
-  // Set CORS headers in the response
-  return {
-    props: {
-      partners: JSON.parse(JSON.stringify(partners))
-    },
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization"
-    }
-  };
+    return {
+      props: {
+        partners: JSON.parse(JSON.stringify(partners))
+      },
+      // No need to set CORS headers here
+    };
+  } catch (error) {
+    console.error("Error fetching partners:", error);
+    return {
+      props: {
+        partners: []
+      },
+    };
+  }
 }
 
 export default PartnersPage;
