@@ -8,6 +8,7 @@ const Hero1 = ({ serverSideData }) => {
   const [galleryItems, setGalleryItems] = useState(serverSideData || []);
 
   useEffect(() => {
+    console.log("useEffect triggered");
     if (!serverSideData || serverSideData.length === 0) {
       fetchBlogs();
     }
@@ -143,4 +144,3 @@ export const getServerSideProps = async () => {
 };
 
 export default Hero1;
-
