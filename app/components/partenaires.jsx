@@ -8,8 +8,6 @@ const Hero1 = () => {
 
   useEffect(() => {
     fetchBlogs();
-    const intervalId = setInterval(fetchBlogs, 1000); // Fetch data every 60 seconds
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
 
   const handleFilterClick = (filter) => {
@@ -19,9 +17,7 @@ const Hero1 = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners", {
-      cache: "no-store"
-    });
+      const response = await fetch("https://saidtex.ma/api/partners", { cache: "no-store" });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
