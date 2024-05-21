@@ -7,6 +7,8 @@ class Hero1 extends React.Component {
     this.state = {
       activeFilter: "All",
       galleryItems: [],
+      loading: true,
+      error: null,
     };
   }
 
@@ -21,19 +23,32 @@ class Hero1 extends React.Component {
 
   fetchBlogs = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners");
+      const response = await fetch("https://saidtex.ma/api/partners", {
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
       const blogs = await response.json();
-      this.setState({ galleryItems: blogs });
+      this.setState({ galleryItems: blogs, loading: false });
     } catch (error) {
       console.error("Error fetching blogs:", error);
+      this.setState({ error: error.message, loading: false });
     }
   };
 
   render() {
-    const { activeFilter, galleryItems } = this.state;
+    const { activeFilter, galleryItems, loading, error } = this.state;
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
+    if (error) {
+      return <div>Error: {error}</div>;
+    }
 
     return (
       <section
