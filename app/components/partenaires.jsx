@@ -1,11 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
-import { getServerSideProps } from "./dataFetching"; // Adjust path if necessary
 
-const Hero1 = ({ initialGalleryItems = [] }) => {
+const Hero1 = ({ initialGalleryItems }) => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
+
+  useEffect(() => {
+    // Your code for data fetching (if needed) on client-side here
+  }, []);
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
@@ -13,7 +16,11 @@ const Hero1 = ({ initialGalleryItems = [] }) => {
   };
 
   return (
-    <section className="works section-padding" data-scroll-index="2" id="partenaires">
+    <section
+      className="works section-padding"
+      data-scroll-index="2"
+      id="partenaires"
+    >
       <div className="">
         <div className="row">
           <div className="section-head offset-md-2 col-md-8 offset-lg-3 col-lg-6">
@@ -90,5 +97,27 @@ const Hero1 = ({ initialGalleryItems = [] }) => {
     </section>
   );
 };
+
+export async function getServerSideProps() {
+  try {
+    const response = await fetch("https://saidtex.ma/api/partners");
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+    const blogs = await response.json();
+    return {
+      props: {
+        initialGalleryItems: blogs,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return {
+      props: {
+        initialGalleryItems: [],
+      },
+    };
+  }
+}
 
 export default Hero1;
