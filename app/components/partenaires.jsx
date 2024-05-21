@@ -17,7 +17,7 @@ const Hero1 = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners");
+      const response = await fetch("https://front-end-six-rust.vercel.app/api/partners");
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
