@@ -5,5 +5,11 @@ import { NextResponse } from "next/server";
 export async function GET() {
   await connectMongoDB();
   const partners = await Partner.find();
-  return NextResponse.json( partners );
+
+  // Set Cache-Control header to prevent caching
+  return NextResponse.json(partners, {
+    headers: {
+      "Cache-Control": "no-cache, no-store, must-revalidate"
+    }
+  });
 }
