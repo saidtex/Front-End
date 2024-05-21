@@ -1,9 +1,21 @@
 {
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/*",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/static/*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600" // Example: cache static assets for 1 hour
+        }
       ]
     }
   ]
