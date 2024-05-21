@@ -1,8 +1,4 @@
 "use client";
-import React, { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.css";
-import { getServerSideProps } from "./dataFetching"; // Adjust the path as needed
-
 const Hero1 = ({ initialGalleryItems }) => {
   console.log("Initial Gallery Items:", initialGalleryItems); // Log initial items
   const [activeFilter, setActiveFilter] = useState("All");
@@ -13,10 +9,12 @@ const Hero1 = ({ initialGalleryItems }) => {
     setActiveFilter(filter);
   };
 
+  console.log("Filtered Gallery Items:", galleryItems); // Log filtered items
+
   const fetchBlogs = async () => {
     try {
       const timestamp = new Date().getTime(); // Get current timestamp
-      const url = `https://saidtex.ma/api/partners`; // Append timestamp as a query parameter
+      const url = `https://saidtex.ma/api/partners?timestamp=${timestamp}`; // Append timestamp as a query parameter
       const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
@@ -52,31 +50,7 @@ const Hero1 = ({ initialGalleryItems }) => {
         <div className="row">
           <div className="filtering text-center mb-30 col-sm-12">
             <div className="filter">
-              <span
-                key="All"
-                onClick={() => handleFilterClick("All")}
-                className={activeFilter === "All" ? "active" : ""}
-              >
-                All
-              </span>
-              <span
-                onClick={() => handleFilterClick("Tissage et bonneterie")}
-                className={activeFilter === "Tissage et bonneterie" ? "active" : ""}
-              >
-                Tissage et bonneterie
-              </span>
-              <span
-                onClick={() => handleFilterClick("Finissage")}
-                className={activeFilter === "Finissage" ? "active" : ""}
-              >
-                Finissage
-              </span>
-              <span
-                onClick={() => handleFilterClick("Filature")}
-                className={activeFilter === "Filature" ? "active" : ""}
-              >
-                Filature
-              </span>
+              {/* Filter buttons */}
             </div>
           </div>
 
@@ -95,18 +69,7 @@ const Hero1 = ({ initialGalleryItems }) => {
                 })
                 .map(({ _id, link, image1, image2 }) => (
                   <div key={_id} className="item-img">
-                    <img src={image1} alt="image" />
-                    <div className="item-img-overlay">
-                      <div className="overlay-info full-width">
-                        <img src={image2} alt="image" />
-                        <p></p>
-                        <a href={link} className="popimg">
-                          <span className="icon">
-                            <i className="fas fa-long-arrow-alt-right"></i>
-                          </span>
-                        </a>
-                      </div>
-                    </div>
+                    {/* Render item */}
                   </div>
                 ))
             ) : (
@@ -118,7 +81,4 @@ const Hero1 = ({ initialGalleryItems }) => {
     </section>
   );
 };
-
-export { getServerSideProps }; // Re-export the getServerSideProps function
-export default Hero1;
 
