@@ -3,12 +3,12 @@
     {
       "src": "/api/example",
       "methods": ["GET"],
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate" },
-        { "key": "Pragma", "value": "no-cache" },
-        { "key": "Expires", "value": "0" },
-        { "key": "Surrogate-Control", "value": "no-store" }
-      ]
+      "headers": {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+        "Surrogate-Control": "no-store"
+      }
     }
   ]
 }
