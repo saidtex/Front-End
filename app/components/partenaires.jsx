@@ -6,27 +6,26 @@ const Hero1 = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [galleryItems, setGalleryItems] = useState([]);
 
+ const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetchBlogs();
+    fetchPartners(); // Fetch partners data on component mount
     const intervalId = setInterval(fetchPartners, 5000); // Polling every 5 seconds
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId); // Cleanup function to stop polling on component unmount
   }, []);
 
   const handleFilterClick = (filter) => {
-    console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
-  const fetchBlogs = async () => {
+  const fetchPartners = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners");
-      if (!response.ok) {
-        throw new Error("Failed to fetch blogs");
-      }
-      const blogs = await response.json();
-      setGalleryItems(blogs);
+      const response = await axios.get("https://saidtex.ma/api/partners"); // Fetch data from the API endpoint
+      setGalleryItems(response.data); // Update state with fetched data
+      setError(null); // Clear any previous errors
     } catch (error) {
-      console.error("Error fetching blogs:", error);
+      console.error("Error fetching partners:", error);
+      setError("Failed to fetch partners data. Please try again later.");
     }
   };
 
