@@ -6,20 +6,25 @@ const Hero1 = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [galleryItems, setGalleryItems] = useState([]);
 
- useEffect(() => {
-    fetchPartners(); // Fetch partners data on component mount
+  useEffect(() => {
+    fetchBlogs();
   }, []);
 
   const handleFilterClick = (filter) => {
+    console.log("Selected category:", filter);
     setActiveFilter(filter);
   };
 
-  const fetchPartners = async () => {
+  const fetchBlogs = async () => {
     try {
-      const response = await axios.get("https://front-end-six-rust.vercel.app/api/partners"); // Fetch data from the API endpoint
-      setGalleryItems(response.data); // Update state with fetched data
+      const response = await fetch("https://saidtex.ma/api/partners");
+      if (!response.ok) {
+        throw new Error("Failed to fetch blogs");
+      }
+      const blogs = await response.json();
+      setGalleryItems(blogs);
     } catch (error) {
-      console.error("Error fetching partners:", error);
+      console.error("Error fetching blogs:", error);
     }
   };
 
