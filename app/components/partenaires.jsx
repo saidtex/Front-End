@@ -1,5 +1,4 @@
-// components/Hero1.js
-
+// pages/hero1.js
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
@@ -8,17 +7,8 @@ const Hero1 = ({ initialGalleryItems }) => {
   const [galleryItems, setGalleryItems] = useState(initialGalleryItems);
 
   useEffect(() => {
-    fetchGalleryItems();
+    // No need for fetching data here since we'll pass it from SSR
   }, []);
-
-  const fetchGalleryItems = async () => {
-    try {
-      // You can fetch additional data here if needed
-      setGalleryItems(initialGalleryItems);
-    } catch (error) {
-      console.error("Error fetching gallery items:", error);
-    }
-  };
 
   const handleFilterClick = (filter) => {
     console.log("Selected category:", filter);
@@ -26,7 +16,11 @@ const Hero1 = ({ initialGalleryItems }) => {
   };
 
   return (
-    <section className="works section-padding" data-scroll-index="2" id="partenaires">
+    <section
+      className="works section-padding"
+      data-scroll-index="2"
+      id="partenaires"
+    >
       <div className="">
         <div className="row">
           <div className="section-head offset-md-2 col-md-8 offset-lg-3 col-lg-6">
@@ -103,5 +97,27 @@ const Hero1 = ({ initialGalleryItems }) => {
     </section>
   );
 };
+
+export async function getServerSideProps(context) {
+  try {
+    const response = await fetch("https://front-end-six-rust.vercel.app/api/partners");
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+    const galleryItems = await response.json();
+    return {
+      props: {
+        initialGalleryItems: galleryItems,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return {
+      props: {
+        initialGalleryItems: [],
+      },
+    };
+  }
+}
 
 export default Hero1;
