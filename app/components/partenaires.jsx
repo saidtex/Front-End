@@ -19,7 +19,7 @@ const Hero1 = ({ serverSideData }) => {
   const fetchBlogs = async () => {
     try {
       const timestamp = Date.now();
-      const response = await fetch(`https://saidtex.ma/api/partners`, { next: { revalidate: 10 } });
+      const response = await fetch(`https://saidtex.ma/api/partners`, { cache: 'force-cache' });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
@@ -91,7 +91,7 @@ const Hero1 = ({ serverSideData }) => {
 
 export const getServerSideProps = async () => {
   try {
-    const response = await fetch("https://saidtex.ma/api/partners", { next: { revalidate: 10 } });
+    const response = await fetch("https://saidtex.ma/api/partners", { cache: 'force-cache' });
     if (!response.ok) {
       throw new Error("Failed to fetch blogs");
     }
