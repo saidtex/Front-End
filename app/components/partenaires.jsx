@@ -17,7 +17,7 @@ const Hero1 = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners", {
+      const response = await fetch("https://back-end-htyn.onrender.com/partners", {
     next: {
       revalidate: 60, // 1 hour
     },
