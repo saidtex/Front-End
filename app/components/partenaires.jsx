@@ -17,7 +17,11 @@ const Hero1 = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://saidtex.ma/api/partners", { cache: 'force-cache' });
+      const response = await fetch("https://saidtex.ma/api/partners", {
+    next: {
+      revalidate: 60, // 1 hour
+    },
+  });
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
