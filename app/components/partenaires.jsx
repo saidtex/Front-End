@@ -17,7 +17,7 @@ const Hero1 = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://back-end-iota-steel.vercel.app/partners", {
+      const response = await fetch("https://back-end-teal.vercel.app/partners", {
     next: {
       revalidate: 60, // 1 hour
     },
