@@ -17,7 +17,7 @@ const Hero1 = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("https://back-end-mu-ten.vercel.app/partners");
+      const response = await fetch("https://back-end-lovat-seven.vercel.app/partners");
       if (!response.ok) {
         throw new Error("Failed to fetch blogs");
       }
