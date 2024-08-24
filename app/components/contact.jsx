@@ -61,7 +61,7 @@ const Contact = () => {
                   <iframe
                     width="100%"
                     height="245"
-                    src="https://maps.google.com/maps?width=100%25&amp;height=245&amp;hl=en&amp;q=103%20Bd%20Yacoub%20Al%20Mansour,%20Mohamm%C3%A9dia+(SAIDTEX)&amp;t=p&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2347.121798777045!2d-7.393442643426427!3d33.700370571607024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDQyJzAwLjgiTiA3wrAyMyc0Mi41Ilc!5e0!3m2!1sar!2sma!4v1724517270555!5m2!1sar!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                     style={{ border: 0 }}
                     allowfullscreen=""
                     loading="lazy"
@@ -89,7 +89,7 @@ const Contact = () => {
 
                   <div className="cont">
                     <h6>Téléphone : </h6>
-                    <p>+212 (0) 523 303 419</p>
+                    <p>+212 523303419</p>
                   </div>
                 </div>
                 <div className="item">
